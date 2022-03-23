@@ -71,11 +71,11 @@ function App() {
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/signin" component={SignIn} />
 
-            <Private>
-              <Route exact path="/list" component={ProductList} />
-              <Route path="/edit/:id" component={Edit} />
-              <Route exact path="/" component={Home} />
-            </Private>
+            {/* <Private> */}
+            <Route exact path="/list" component={ProductList} />
+            <Route path="/edit/:id" component={Edit} />
+            <Route exact path="/" component={Home} />
+            {/* </Private> */}
           </CommonLayout>
         </Switch>
       </AuthContext.Provider>

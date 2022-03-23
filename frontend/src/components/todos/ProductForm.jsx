@@ -42,6 +42,15 @@ const borderStyles = {
 function ProductForm({ handleGetPost }) {
   const classes = useStyles();
   const [title, setTitle] = useState("");
+  const [reason, setReason] = useState("");
+  const [thoughts, setThoughts] = useState("");
+  const [tech, setTech] = useState("");
+  const [loadmap, setLoadmap] = useState("");
+  const [day, setDay] = useState();
+  const [commitment, setCommitment] = useState("");
+  const [link, setLink] = useState("");
+  const [github, setGithub] = useState("");
+  const [how, setHow] = useState("");
   const [image, setImage] = useState();
   const [preview, setPreview] = useState("");
 
@@ -97,6 +106,113 @@ function ProductForm({ handleGetPost }) {
             <PhotoCameraIcon />
           </label>
         </div>
+
+        <TextField
+          placeholder="hello"
+          variant="outlined"
+          multiline
+          fullwidth="true"
+          row="4"
+          value={reason}
+          onChange={(e) => {
+            setReason(e.target.value);
+          }}
+        />
+
+        <TextField
+          placeholder="hello"
+          variant="outlined"
+          multiline
+          fullwidth="true"
+          row="4"
+          value={thoughts}
+          onChange={(e) => {
+            setThoughts(e.target.value);
+          }}
+        />
+
+        <TextField
+          placeholder="hello"
+          variant="outlined"
+          multiline
+          fullwidth="true"
+          row="4"
+          value={tech}
+          onChange={(e) => {
+            setTech(e.target.value);
+          }}
+        />
+
+        <TextField
+          placeholder="hello"
+          variant="outlined"
+          multiline
+          fullwidth="true"
+          row="4"
+          value={loadmap}
+          onChange={(e) => {
+            setLoadmap(e.target.value);
+          }}
+        />
+
+        <TextField
+          placeholder="hello"
+          variant="outlined"
+          multiline
+          fullwidth="true"
+          row="4"
+          value={day}
+          onChange={(e) => {
+            setDay(e.target.value);
+          }}
+        />
+
+        <TextField
+          placeholder="hello"
+          variant="outlined"
+          multiline
+          fullwidth="true"
+          row="4"
+          value={commitment}
+          onChange={(e) => {
+            setCommitment(e.target.value);
+          }}
+        />
+
+        <TextField
+          placeholder="hello"
+          variant="outlined"
+          multiline
+          fullwidth="true"
+          row="4"
+          value={link}
+          onChange={(e) => {
+            setLink(e.target.value);
+          }}
+        />
+
+        <TextField
+          placeholder="hello"
+          variant="outlined"
+          multiline
+          fullwidth="true"
+          row="4"
+          value={github}
+          onChange={(e) => {
+            setGithub(e.target.value);
+          }}
+        />
+        <TextField
+          placeholder="hello"
+          variant="outlined"
+          multiline
+          fullwidth="true"
+          row="4"
+          value={how}
+          onChange={(e) => {
+            setHow(e.target.value);
+          }}
+        />
         <div className={classes.submitBtn}>
           <Button
             type="submit"

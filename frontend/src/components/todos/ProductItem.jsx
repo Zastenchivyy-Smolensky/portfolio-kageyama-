@@ -51,9 +51,7 @@ const PostItem = ({ product, handleGetPosts }) => {
           avatar={<Avatar>U</Avatar>}
           action={
             <IconButton>
-              <Link to={`/edit/${product.id}`}>
-                <MoreVertIcon />
-              </Link>
+              <MoreVertIcon />
             </IconButton>
           }
           title="User Name"
@@ -61,15 +59,15 @@ const PostItem = ({ product, handleGetPosts }) => {
         {product.image?.url ? (
           <CardMedia component="img" src={product.image.url} alt="post image" />
         ) : null}
-        <Link to={`/product/${product.id}}`}>
-          <CardContent>
+        <CardContent>
+          <Link to={`/edit/${product.id}`}>
             <Typography variant="body2" color="textSecondary" component="span">
               {product.title.split("¥n").map((title, index) => {
                 return <p key={index}>{title}</p>;
               })}
             </Typography>
-          </CardContent>
-        </Link>
+          </Link>
+        </CardContent>
         <CardActions disableSpacing>
           <IconButton onClick={() => (like ? setLike(false) : setLike(true))}>
             {like ? <FavoriteIcon /> : <FavoriteBorderIcon />}
