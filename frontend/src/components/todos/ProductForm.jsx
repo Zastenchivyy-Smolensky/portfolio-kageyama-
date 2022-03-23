@@ -82,7 +82,7 @@ function ProductForm({ handleGetPost }) {
     <div>
       <form className={classes.form} noValidate onSubmit={handleCreatePost}>
         <TextField
-          placeholder="hello"
+          placeholder="title"
           variant="outlined"
           multiline
           fullwidth="true"
@@ -106,9 +106,9 @@ function ProductForm({ handleGetPost }) {
             <PhotoCameraIcon />
           </label>
         </div>
-
+        {/* 
         <TextField
-          placeholder="hello"
+          placeholder="アプリを作った理由"
           variant="outlined"
           multiline
           fullwidth="true"
@@ -120,7 +120,7 @@ function ProductForm({ handleGetPost }) {
         />
 
         <TextField
-          placeholder="hello"
+          placeholder="感想"
           variant="outlined"
           multiline
           fullwidth="true"
@@ -212,7 +212,7 @@ function ProductForm({ handleGetPost }) {
           onChange={(e) => {
             setHow(e.target.value);
           }}
-        />
+        /> */}
         <div className={classes.submitBtn}>
           <Button
             type="submit"
