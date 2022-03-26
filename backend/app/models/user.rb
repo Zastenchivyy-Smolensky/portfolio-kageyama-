@@ -7,8 +7,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :validatable
   include DeviseTokenAuth::Concerns::User
   mount_uploader :image, ImageUploader
-  has_many :products
+  has_many :products, dependent: :destroy
 
-  has_many :favorites
+  # has_many :favorites
 
 end

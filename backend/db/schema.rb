@@ -14,7 +14,7 @@ ActiveRecord::Schema.define(version: 2022_03_26_120952) do
 
   create_table "favorites", force: :cascade do |t|
     t.integer "user_id"
-    t.integer "product_iddd"
+    t.integer "product_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -33,6 +33,8 @@ ActiveRecord::Schema.define(version: 2022_03_26_120952) do
     t.text "how"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_products_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -48,6 +50,7 @@ ActiveRecord::Schema.define(version: 2022_03_26_120952) do
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
     t.string "name"
+    t.string "nickname"
     t.string "image"
     t.string "email"
     t.text "tokens"
@@ -60,4 +63,5 @@ ActiveRecord::Schema.define(version: 2022_03_26_120952) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "products", "users"
 end

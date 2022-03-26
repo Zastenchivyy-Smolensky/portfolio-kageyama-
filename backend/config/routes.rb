@@ -2,8 +2,11 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :products, only: %i[index create show destroy update]
+      resources :products, only: %i[index create show destroy update] do
+        resource :favorites, only: [:create, :destroy]
+      end
       resources :users, only: %i[show update]
+
       mount_devise_token_auth_for 'User', at: 'auth', controllers: {
         registrations: 'api/v1/auth/registrations'
       }

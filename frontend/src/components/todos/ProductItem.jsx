@@ -16,7 +16,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 import { Link } from "react-router-dom";
-import { deleteProducts } from "../../lib/api/products";
+import { deleteProduct } from "../../lib/api/products";
 
 const useStyles = makeStyles(() => ({
   card: {
@@ -39,7 +39,7 @@ const PostItem = ({ product, handleGetPosts }) => {
   const [like, setLike] = useState(false);
 
   const handleDeletePost = async (id) => {
-    await deleteProducts(id).then(() => {
+    await deleteProduct(id).then(() => {
       handleGetPosts();
     });
   };

@@ -24,7 +24,7 @@ import { useCallback } from "react";
 
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
-import { editProducts, getDetail } from "../../lib/api/products";
+import { editProduct, getDetail } from "../../lib/api/products";
 const useStyles = makeStyles((theme) => ({
   card: {
     width: 340,
@@ -85,7 +85,7 @@ function Edit() {
     e.preventDefault();
     const data = createFormData();
     try {
-      const res = await editProducts(query.id, data);
+      const res = await editProduct(query.id, data);
       console.log(res);
       if (res.status === 200) {
         setEditFormOpen(false);
