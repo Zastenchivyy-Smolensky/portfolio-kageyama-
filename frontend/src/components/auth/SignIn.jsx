@@ -14,6 +14,7 @@ import Box from "@material-ui/core/Box";
 import AlertMessage from "../utils/AlertMessage";
 import { AuthContext } from "../../App";
 import { signIn } from "../../lib/api/auth";
+import SuccessMessage from "../utils/SuccessMessage";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -44,7 +45,7 @@ function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [alertMessageOpen, setAlertMessageOpen] = useState(false);
-
+  const [successMessageOpen, setSuccessMessageOpen] = useState(false);
   const history = useHistory();
   const generateParams = () => {
     const SignInParams = {
@@ -65,8 +66,9 @@ function SignIn() {
         Cookies.set("_uid", res.headers["uid"]);
         setIsSignedIn(true);
         setCurrentUser(res.data.data);
-        history.push("/");
+        history.push("/list");
         console.log("sign in successfully");
+        SuccessMessage(true);
       } else {
         setAlertMessageOpen(true);
       }
@@ -130,6 +132,12 @@ function SignIn() {
         setOpen={setAlertMessageOpen}
         severity="error"
         message="Invalid emai or password"
+      />
+      <SuccessMessage
+        open={successMessageOpen}
+        setOpen={setSuccessMessageOpen}
+        severity="error"
+        message="ログインに成功しました"
       />
     </div>
   );

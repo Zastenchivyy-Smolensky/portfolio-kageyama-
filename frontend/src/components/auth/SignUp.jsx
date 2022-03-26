@@ -33,6 +33,7 @@ function SignUp() {
   const classes = useStyles();
   const history = useHistory();
   const { setIsSignedIn, setCurrentUser } = useContext(AuthContext);
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
@@ -41,6 +42,7 @@ function SignUp() {
 
   const generateParams = () => {
     const signUpParams = {
+      name: name,
       email: email,
       password: password,
       passwordConfirmation: passwordConfirmation,
@@ -61,7 +63,7 @@ function SignUp() {
         Cookies.set("_uid", res.headers["uid"]);
         setIsSignedIn(true);
         setCurrentUser(res.data.data);
-        history.push("/");
+        history.push("/list");
       } else {
         setAlertMessageOpen(true);
       }
@@ -76,6 +78,15 @@ function SignUp() {
         <Card className={classes.card}>
           <CardHeader className={classes.header} title="Sign up" />
           <CardContent>
+            <TextField
+              variant="outlined"
+              required
+              fullWidth
+              label="名前"
+              value={name}
+              margin="dense"
+              onChange={(event) => setName(event.target.value)}
+            />
             <TextField
               variant="outlined"
               required

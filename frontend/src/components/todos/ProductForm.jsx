@@ -42,15 +42,15 @@ const borderStyles = {
 function ProductForm({ handleGetPost }) {
   const classes = useStyles();
   const [title, setTitle] = useState("");
-  const [reason, setReason] = useState("");
-  const [thoughts, setThoughts] = useState("");
-  const [tech, setTech] = useState("");
-  const [loadmap, setLoadmap] = useState("");
-  const [day, setDay] = useState();
-  const [commitment, setCommitment] = useState("");
-  const [link, setLink] = useState("");
-  const [github, setGithub] = useState("");
-  const [how, setHow] = useState("");
+  // const [reason, setReason] = useState("");
+  // const [thoughts, setThoughts] = useState("");
+  // const [tech, setTech] = useState("");
+  // const [loadmap, setLoadmap] = useState("");
+  // const [day, setDay] = useState();
+  // const [commitment, setCommitment] = useState("");
+  // const [link, setLink] = useState("");
+  // const [github, setGithub] = useState("");
+  // const [how, setHow] = useState("");
   const [image, setImage] = useState();
   const [preview, setPreview] = useState("");
 

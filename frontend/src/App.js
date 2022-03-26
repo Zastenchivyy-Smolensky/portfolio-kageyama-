@@ -15,6 +15,7 @@ import Home from "./components/pages/Home";
 import SignIn from "./components/auth/SignIn";
 import ProductList from "./components/todos/ProductList";
 import Edit from "./components/todos/Edit";
+import Users from "./components/pages/Users";
 
 export const AuthContext = createContext();
 
@@ -71,11 +72,12 @@ function App() {
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/signin" component={SignIn} />
 
-            {/* <Private> */}
-            <Route exact path="/list" component={ProductList} />
-            <Route path="/edit/:id" component={Edit} />
-            <Route exact path="/" component={Home} />
-            {/* </Private> */}
+            <Private>
+              <Route exact path="/list" component={ProductList} />
+              <Route exact path="/users" component={Users} />
+              <Route path="/edit/:id" component={Edit} />
+              <Route exact path="/" component={Home} />
+            </Private>
           </CommonLayout>
         </Switch>
       </AuthContext.Provider>

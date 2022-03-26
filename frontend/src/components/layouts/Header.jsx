@@ -10,7 +10,8 @@ import { AuthContext } from "../../App";
 import { Link, useHistory } from "react-router-dom";
 import { signOut } from "../../lib/api/auth";
 import Cookies from "js-cookie";
-
+import PersonIcon from "@material-ui/icons/Person";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 const useStyles = makeStyles((theme) => ({
   IconButton: {
     marginTop: theme.spacing(2),
@@ -52,13 +53,24 @@ function Header() {
     if (!loading) {
       if (isSignedIn) {
         return (
-          <Button
-            color="inherit"
-            className={classes.linkBtn}
-            onClick={handleSignOut}
-          >
-            Sign out
-          </Button>
+          <>
+            <IconButton
+              component={Link}
+              to="/"
+              edge="start"
+              className={classes.linkBtn}
+              color="inherit"
+            >
+              <PersonIcon />
+            </IconButton>
+            <IconButton
+              color="inherit"
+              onClick={handleSignOut}
+              className={classes.linkBtn}
+            >
+              <ExitToAppIcon />
+            </IconButton>
+          </>
         );
       } else {
         return (
@@ -108,7 +120,7 @@ function Header() {
 
           <Typography
             component={Link}
-            to="/"
+            to="/list"
             variant="h6"
             className={classes.title}
           >
