@@ -1,16 +1,16 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
 import { makeStyles } from "@material-ui/core";
 import { AuthContext } from "../../App";
 import { Link, useHistory } from "react-router-dom";
 import { signOut } from "../../lib/api/auth";
 import Cookies from "js-cookie";
 import PersonIcon from "@material-ui/icons/Person";
+import SearchIcon from "@material-ui/icons/Search";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 const useStyles = makeStyles((theme) => ({
   IconButton: {
@@ -27,8 +27,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Header() {
-  const { loading, isSignedIn, setIsSignedIn, currentUser } =
-    useContext(AuthContext);
+  const { loading, isSignedIn, setIsSignedIn } = useContext(AuthContext);
   const classes = useStyles();
   const history = useHistory();
 
@@ -54,6 +53,15 @@ function Header() {
       if (isSignedIn) {
         return (
           <>
+            <IconButton
+              component={Link}
+              to="/users"
+              edge="start"
+              className={classes.linkBtn}
+              color="inherit"
+            >
+              <SearchIcon />
+            </IconButton>
             <IconButton
               component={Link}
               to="/"
@@ -98,26 +106,11 @@ function Header() {
       return <></>;
     }
   };
-  const [open, setOpen] = useState(false);
-  const handleDrawerToggle = () => {
-    setOpen(!open);
-  };
+
   return (
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          {isSignedIn && currentUser && (
-            <IconButton
-              edge="start"
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="menu"
-              onClick={handleDrawerToggle}
-            >
-              <MenuIcon />
-            </IconButton>
-          )}
-
           <Typography
             component={Link}
             to="/list"

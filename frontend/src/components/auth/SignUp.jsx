@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
   card: {
     padding: theme.spacing(2),
-    maxWidth: 400,
+    maxWidth: 340,
   },
 }));
 function SignUp() {
@@ -40,22 +40,20 @@ function SignUp() {
   const [alertMessageOpen, setAlertMessageOpen] = useState(false);
   const confirmSucceessUrl = "http://localhost:3000";
 
-  const generateParams = () => {
-    const signUpParams = {
-      name: name,
-      email: email,
-      password: password,
-      passwordConfirmation: passwordConfirmation,
-      confirmSucceessUrl: confirmSucceessUrl,
-    };
-    return signUpParams;
-  };
+  const createFormData = () => {
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("passwordConfirmation", passwordConfirmation);
 
+    return formData;
+  };
   const handleSignUpSubmit = async (e) => {
     e.preventDefault();
-    const params = generateParams();
+    const data = createFormData();
     try {
-      const res = await signUp(params);
+      const res = await signUp(data);
       console.log(res);
       if (res.status === 200) {
         Cookies.set("_access_token", res.headers["access-token"]);
@@ -64,6 +62,11 @@ function SignUp() {
         setIsSignedIn(true);
         setCurrentUser(res.data.data);
         history.push("/list");
+        setName("");
+        setEmail("");
+        setPassword("");
+        setPasswordConfirmation("");
+        console.log("Signed in successful");
       } else {
         setAlertMessageOpen(true);
       }

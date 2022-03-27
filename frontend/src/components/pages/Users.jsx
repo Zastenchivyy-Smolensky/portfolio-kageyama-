@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Typography } from "@material-ui/core";
 
 import Dialog from "@material-ui/core/Dialog";
@@ -13,9 +13,10 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import { useContext } from "react";
 import { AuthContext } from "../../App";
 import { useState } from "react";
-import { async } from "q";
 import { getUsers } from "../../lib/api/users";
 import { useEffect } from "react";
+import { createFollow, getFollows } from "../../lib/api/relationships";
+import AlertMessage from "../utils/AlertMessage";
 const useStyles = makeStyles((theme) => ({
   avatar: {
     width: theme.spacing(10),
@@ -43,8 +44,25 @@ function Users() {
   const [users, setUsers] = useState([]);
   const [user, setUser] = useState(initialUserState);
   const [userDetailOpen, setUserDetailOpen] = useState(false);
-  const [alertMessage, setAlertMessageOpen] = useState(false);
+  const [followedUsers, setFollowedUsers] = useState([]);
+  const [alertMessageOpen, setAlertMessageOpen] = useState(false);
 
+  const handleCreateFollow = async (user) => {
+    const data = {
+      formUserId: currentUser?.id,
+      toUserId: user.id,
+    };
+    try {
+      const res = await createFollow(data);
+      console.log(res);
+      if (res?.status === 200) {
+      } else {
+        console.log("failed");
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
   const handleGetUsers = async () => {
     try {
       const res = await getUsers();
@@ -59,9 +77,27 @@ function Users() {
     }
     setLoading(false);
   };
+
+  // const handleGetFollows = async () => {
+  //   try {
+  //     const res = await getFollows();
+  //     console.log(res);
+  //     if (res?.status === 200) {
+  //       setFollowedUsers(res?.data.activeFollows);
+  //     } else {
+  //       console.log("No follows");
+  //     }
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
   useEffect(() => {
     handleGetUsers();
-  });
+    // handleGetFollows();
+  }, []);
+  // const isFollowedUser = (userId) => {
+  //   return followedUsers?.some((followUsers) => followUsers.id === userId);
+  // };
 
   return (
     <div>
@@ -77,7 +113,7 @@ function Users() {
                     setUserDetailOpen(true);
                   }}
                 >
-                  <Grid teim style={{ margin: "0.5rem", cursor: "pointer" }}>
+                  <Grid item style={{ margin: "0.5rem", cursor: "pointer" }}>
                     <Avatar
                       alt="avatar"
                       src={user?.image.url}
@@ -147,9 +183,35 @@ function Users() {
                 {user.profile ? user.profile : "よろしくお願いします"}
               </Typography>
             </Grid>
+            {/* <Grid container justifyContent="center">
+              <Button
+                variant="outlined"
+                onClick={() =>
+                  isFollowedUser(user.id) ? void 0 : handleCreateFollow(user)
+                }
+                color="secondary"
+                startIcon={
+                  isFollowedUser(user.id) ? (
+                    <FavoriteIcon />
+                  ) : (
+                    <FavoriteBorderIcon />
+                  )
+                }
+                disabled={isFollowedUser(user.id) ? true : false}
+                style={{ marginTop: "1rem", marginBottom: "1rem" }}
+              >
+                {isFollowedUser(user.id) ? "フォロー済" : "フォロー"}
+              </Button>
+            </Grid> */}
           </Grid>
         </DialogContent>
       </Dialog>
+      <AlertMessage
+        open={alertMessageOpen}
+        setOpen={setAlertMessageOpen}
+        severity="seccess"
+        message="フォローしました"
+      />
     </div>
   );
 }
