@@ -17,6 +17,7 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 import { Link } from "react-router-dom";
 import { deleteProduct } from "../../lib/api/products";
+import Users from "../pages/Users";
 
 const useStyles = makeStyles(() => ({
   card: {
@@ -48,7 +49,7 @@ const PostItem = ({ product, handleGetPosts }) => {
     <>
       <Card className={classes.card}>
         <CardHeader
-          avatar={<Avatar>U</Avatar>}
+          avatar={<Avatar>{Users?.image?.url}</Avatar>}
           action={
             <IconButton>
               <MoreVertIcon />

@@ -133,7 +133,7 @@ function Home() {
               <Grid container justifyContent="center">
                 <Grid item>
                   <Avatar
-                    alt={currentUser.image?.url}
+                    alt={currentUser?.image.url}
                     className={classes.avatar}
                   />
                 </Grid>

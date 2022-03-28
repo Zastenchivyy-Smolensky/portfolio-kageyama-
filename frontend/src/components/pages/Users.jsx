@@ -78,26 +78,26 @@ function Users() {
     setLoading(false);
   };
 
-  // const handleGetFollows = async () => {
-  //   try {
-  //     const res = await getFollows();
-  //     console.log(res);
-  //     if (res?.status === 200) {
-  //       setFollowedUsers(res?.data.activeFollows);
-  //     } else {
-  //       console.log("No follows");
-  //     }
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
+  const handleGetFollows = async () => {
+    try {
+      const res = await getFollows();
+      console.log(res);
+      if (res?.status === 200) {
+        setFollowedUsers(res?.data.activeFollows);
+      } else {
+        console.log("No follows");
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
   useEffect(() => {
     handleGetUsers();
-    // handleGetFollows();
+    handleGetFollows();
   }, []);
-  // const isFollowedUser = (userId) => {
-  //   return followedUsers?.some((followUsers) => followUsers.id === userId);
-  // };
+  const isFollowedUser = (userId) => {
+    return followedUsers?.some((followUsers) => followUsers.id === userId);
+  };
 
   return (
     <div>
@@ -183,7 +183,7 @@ function Users() {
                 {user.profile ? user.profile : "よろしくお願いします"}
               </Typography>
             </Grid>
-            {/* <Grid container justifyContent="center">
+            <Grid container justifyContent="center">
               <Button
                 variant="outlined"
                 onClick={() =>
@@ -202,7 +202,7 @@ function Users() {
               >
                 {isFollowedUser(user.id) ? "フォロー済" : "フォロー"}
               </Button>
-            </Grid> */}
+            </Grid>
           </Grid>
         </DialogContent>
       </Dialog>

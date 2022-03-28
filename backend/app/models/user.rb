@@ -8,15 +8,10 @@ class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
   mount_uploader :image, ImageUploader
   
-  has_many :products, dependent: :destroy
 
-  has_many :active_relationships, class_name: "Relationship", foreign_key: :following_id, dependent: :destroy
-  has_many :followings, through: :active_relationships, source: :follower
+  has_many :following, class_name: "Relationship", foreign_key: :following_id, dependent: :destroy
+  has_many :follower, class_name: "Relationship", foreign_key: :follower_id, dependent: :destroy
+  has_many :active_relationships, through: :following, source: :follower  # 自分からのいいね
+  has_many :passive_relationships, through: :follower, source: :following # 相手からのいいね
 
-  has_many :passive_relationship, class_name: "Relationship", foreign_key: :follower_id, dependent: :destroy
-  has_many :follower, through: :passive_relationship, source: :following
-
-  def followed_by?(user)
-    passive_relationships.find_by(following_id: user.id).present?
-  end
 end
