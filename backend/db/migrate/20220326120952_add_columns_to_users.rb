@@ -1,7 +1,7 @@
 class AddColumnsToUsers < ActiveRecord::Migration[6.1]
   def change
-    add_column :users, :profile, :string, limit: 1000, after: :image
-    add_reference :products, :user, foreign_key: true
-    remove_reference :products, :user, foreign_key: true
+    # add_reference :products, :user, foreign_key: true, after: :how
+    add_reference :products, :user, foreign_key: true, after: :how
+
   end
 end

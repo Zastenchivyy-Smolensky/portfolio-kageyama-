@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
   mount_uploader :image, ImageUploader
   
+  has_many :products, dependent: :destroy
 
   has_many :following, class_name: "Relationship", foreign_key: :following_id, dependent: :destroy
   has_many :follower, class_name: "Relationship", foreign_key: :follower_id, dependent: :destroy

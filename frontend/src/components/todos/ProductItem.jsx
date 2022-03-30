@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import { makeStyles } from "@material-ui/styles";
 import Card from "@material-ui/core/Card";
@@ -15,10 +15,12 @@ import ShareIcon from "@material-ui/icons/Share";
 import DeleteIcon from "@material-ui/icons/Delete";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { deleteProduct } from "../../lib/api/products";
 import Users from "../pages/Users";
-
+import { AuthContext } from "../../App";
+import { useEffect } from "react";
+import { getUserPosts } from "../../lib/api/user";
 const useStyles = makeStyles(() => ({
   card: {
     width: 320,
@@ -38,11 +40,35 @@ const useStyles = makeStyles(() => ({
 const PostItem = ({ product, handleGetPosts }) => {
   const classes = useStyles();
   const [like, setLike] = useState(false);
+  const { loading, isSignedIn, currentUser } = useContext(AuthContext);
+  const [userProducts, setUserProducts] = useState({});
+  const [dataList, setDataList] = useState([]);
 
-  const handleDeletePost = async (id) => {
-    await deleteProduct(id).then(() => {
-      handleGetPosts();
-    });
+  useEffect(() => {
+    handleGetPosts();
+  }, [currentUser]);
+
+  const handleGetUserProducts = async () => {
+    if (!loading) {
+      if (isSignedIn) {
+        const res = await getUserPosts(currentUser.id);
+        console.log(res.data);
+        setDataList(res.data);
+        setUserProducts(res.data);
+      } else {
+        <Redirect to="/signin" />;
+      }
+    }
+  };
+  const handleDeletePost = async (item) => {
+    console.log("click", item.id);
+    try {
+      const res = await deleteProduct(item.id);
+      console.log(res.data);
+      handleGetUserProducts();
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
@@ -73,14 +99,24 @@ const PostItem = ({ product, handleGetPosts }) => {
           <IconButton onClick={() => (like ? setLike(false) : setLike(true))}>
             {like ? <FavoriteIcon /> : <FavoriteBorderIcon />}
           </IconButton>
+
           <IconButton>
             <ShareIcon />
           </IconButton>
-          <div className={classes.delete}>
-            <IconButton onClick={() => handleDeletePost(product.id)}>
-              <DeleteIcon />
-            </IconButton>
-          </div>
+
+          {dataList.map((item, index) => (
+            <div>
+              {currentUser.id === item.userId ? (
+                <div className={classes.delete}>
+                  <IconButton onClick={() => handleDeletePost(product.id)}>
+                    <DeleteIcon />
+                  </IconButton>
+                </div>
+              ) : (
+                <div></div>
+              )}
+            </div>
+          ))}
         </CardActions>
       </Card>
     </>

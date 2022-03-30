@@ -68,6 +68,7 @@ function SignIn() {
         setCurrentUser(res.data.data);
         history.push("/list");
         console.log("sign in successfully");
+        console.log(res.data);
         SuccessMessage(true);
       } else {
         setAlertMessageOpen(true);

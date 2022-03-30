@@ -5,7 +5,8 @@ class Api::V1::UsersController < ApplicationController
 
     end
     def show
-        render json:{status: 200, user: @user}
+        product = Product.where(user_id: params[:id])
+        render json: product
     end
 
     def update
