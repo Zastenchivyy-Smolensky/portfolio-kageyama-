@@ -16,12 +16,12 @@ const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [showModal, setShowModal] = useState(false);
 
-  const handleGetPosts = async () => {
+  const handleGetProduct = async () => {
     const { data } = await getProducts();
     setProducts(data.products);
   };
   useEffect(() => {
-    handleGetPosts();
+    handleGetProduct();
   }, []);
   const ShowModal = () => {
     setShowModal(true);
@@ -37,7 +37,7 @@ const ProductList = () => {
               <ProductItem
                 key={product.id}
                 product={product}
-                handleGetPosts={handleGetPosts}
+                handleGetProduct={handleGetProduct}
               />
             );
           })}

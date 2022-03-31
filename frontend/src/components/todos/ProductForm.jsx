@@ -9,7 +9,7 @@ import Box from "@material-ui/core/Box";
 import IconButton from "@material-ui/core/IconButton";
 import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
 import CancelIcon from "@material-ui/icons/Cancel";
-import { createProducts } from "../../lib/api/products";
+import { createProduct } from "../../lib/api/products";
 const useStyles = makeStyles((theme) => ({
   form: {
     display: "flex",
@@ -39,18 +39,10 @@ const borderStyles = {
   border: 1,
 };
 
-function ProductForm({ handleGetPost }) {
+function ProductForm({ handleGetProduct }) {
   const classes = useStyles();
   const [title, setTitle] = useState("");
-  // const [reason, setReason] = useState("");
-  // const [thoughts, setThoughts] = useState("");
-  // const [tech, setTech] = useState("");
-  // const [loadmap, setLoadmap] = useState("");
-  // const [day, setDay] = useState();
-  // const [commitment, setCommitment] = useState("");
-  // const [link, setLink] = useState("");
-  // const [github, setGithub] = useState("");
-  // const [how, setHow] = useState("");
+
   const [image, setImage] = useState();
   const [preview, setPreview] = useState("");
 
@@ -63,19 +55,21 @@ function ProductForm({ handleGetPost }) {
     const file = e.target.files[0];
     setPreview(window.URL.createObjectURL(file));
   }, []);
+
   const createFormData = () => {
     const formData = new FormData();
     formData.append("title", title);
     if (image) formData.append("image", image);
     return formData;
   };
+
   const handleCreatePost = async (e) => {
     const data = createFormData();
-    await createProducts(data).then(() => {
+    await createProduct(data).then(() => {
       setTitle("");
       setPreview("");
       setImage(undefined);
-      handleCreatePost();
+      handleGetProduct();
     });
   };
   return (
@@ -222,7 +216,7 @@ function ProductForm({ handleGetPost }) {
             disabled={!title || title.length > 140}
             className={classes.submitBtn}
           >
-            Post
+            投稿
           </Button>
         </div>
       </form>

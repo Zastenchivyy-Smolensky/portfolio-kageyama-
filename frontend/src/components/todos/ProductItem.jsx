@@ -21,6 +21,7 @@ import Users from "../pages/Users";
 import { AuthContext } from "../../App";
 import { useEffect } from "react";
 import { getUserPosts } from "../../lib/api/user";
+import { async } from "q";
 const useStyles = makeStyles(() => ({
   card: {
     width: 320,
@@ -37,7 +38,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const PostItem = ({ product, handleGetPosts }) => {
+const PostItem = ({ product, handleGetProduct }) => {
   const classes = useStyles();
   const [like, setLike] = useState(false);
   const { loading, isSignedIn, currentUser } = useContext(AuthContext);
@@ -45,7 +46,7 @@ const PostItem = ({ product, handleGetPosts }) => {
   const [dataList, setDataList] = useState([]);
 
   useEffect(() => {
-    handleGetPosts();
+    handleGetProduct();
   }, [currentUser]);
 
   const handleGetUserProducts = async () => {
@@ -60,15 +61,10 @@ const PostItem = ({ product, handleGetPosts }) => {
       }
     }
   };
-  const handleDeletePost = async (item) => {
-    console.log("click", item.id);
-    try {
-      const res = await deleteProduct(item.id);
-      console.log(res.data);
-      handleGetUserProducts();
-    } catch (e) {
-      console.log(e);
-    }
+  const handleDeleteProduct = async (id) => {
+    await deleteProduct(id).then(() => {
+      handleGetProduct();
+    });
   };
 
   return (
@@ -104,19 +100,13 @@ const PostItem = ({ product, handleGetPosts }) => {
             <ShareIcon />
           </IconButton>
 
-          {dataList.map((item, index) => (
-            <div>
-              {currentUser.id === item.userId ? (
-                <div className={classes.delete}>
-                  <IconButton onClick={() => handleDeletePost(product.id)}>
-                    <DeleteIcon />
-                  </IconButton>
-                </div>
-              ) : (
-                <div></div>
-              )}
+          <div>
+            <div className={classes.delete}>
+              <IconButton onClick={() => handleDeleteProduct(product.id)}>
+                <DeleteIcon />
+              </IconButton>
             </div>
-          ))}
+          </div>
         </CardActions>
       </Card>
     </>

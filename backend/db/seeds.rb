@@ -11,3 +11,4 @@ User.create!(name: 'test2', email: 'test2@example.com', password: 'password', pa
 
 user1 = User.find(1)
 Product.create!(title: "aaa", image: File.open("sample.jpg"), user: user1)
+Product.create!(title: "aaa", image: File.open("sample.jpg"), user: user1)

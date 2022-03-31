@@ -22,12 +22,12 @@ const overlay = {
 function Modal(props) {
   const [products, setProducts] = useState([]);
   const [showModal, setShowModal] = useState(true);
-  const handleGetPosts = async () => {
+  const handleGetProduct = async () => {
     const { data } = await getProducts();
     setProducts(data.products);
   };
   useEffect(() => {
-    handleGetPosts();
+    handleGetProduct();
   }, []);
   const closeModal = () => {
     props.setShowModal(false);
@@ -37,7 +37,7 @@ function Modal(props) {
       {props.showFlag ? (
         <div id="overlay" style={overlay}>
           <div id="modalContent" style={modalContent}>
-            <ProductForm handleGetPosts={handleGetPosts} />
+            <ProductForm handleGetProduct={handleGetProduct} />
             <button onClick={closeModal}>閉じる</button>
           </div>
         </div>

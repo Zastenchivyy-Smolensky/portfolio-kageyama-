@@ -31,10 +31,9 @@ ActiveRecord::Schema.define(version: 2022_03_27_082151) do
     t.string "link"
     t.string "github"
     t.text "how"
-    t.bigint "user_id"
-
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
     t.index ["user_id"], name: "index_products_on_user_id"
   end
 

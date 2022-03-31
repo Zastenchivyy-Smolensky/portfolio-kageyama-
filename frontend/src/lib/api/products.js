@@ -8,7 +8,7 @@ export const getDetail = (id) => {
   return client.get(`/products/${id}`);
 };
 
-export const createProducts = (params) => {
+export const createProduct = (params) => {
   return client.post("/products", params, {
     headers: {
       "access-token": Cookies.get("_access_token"),
