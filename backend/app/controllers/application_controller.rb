@@ -4,5 +4,5 @@ class ApplicationController < ActionController::API
         include ActionController::Helpers
 
         skip_before_action :verify_authenticity_token, raise: false
-        helper_method :current_api_v1_user, :user_signed_in?, :current_api_v1_user!
+        helper_method :current_user, :user_signed_in?, :authenticate_user!
 end
